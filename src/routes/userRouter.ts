@@ -6,10 +6,10 @@ const userController = new UserController();
 
 router.get("/getAllUsers", userController.getAllUsers.bind(userController));
 
+router.get("/getUserById/:id", userController.getUserById.bind(userController));
+
 router.post("/createUser", userController.createUser.bind(userController));
 
-router.get("/:id", (req, res) => {
-  res.send(`Get user with ID ${req.params.id}`);
-});
+router.put("/editUser", userController.editUser.bind(userController));
 
 export default router;

@@ -1,14 +1,22 @@
 import { Request, Response } from "express";
 import ValiableConstants from "../constants/valiables";
+import Helper from "../helpers/helpers";
 import { User } from "../models/userModel";
 import { UserService } from "../services/userService";
 
 export class UserController {
   private userService = new UserService();
+  private helper = new Helper();
 
   public async getAllUsers(req: Request, res: Response) {
-    const users = await this.userService.getAllUsers(req);
-    res.json(users);
+    try {
+      const users = await this.userService.getAllUsers(req);
+      res.json(users);
+    } catch (err: any) {
+      res
+        .status(ValiableConstants.STATUS_CODE.INTERNAL_SERVER_ERROR)
+        .json(this.helper.responseError(err));
+    }
   }
 
   public async createUser(req: Request<User>, res: Response) {
@@ -18,11 +26,30 @@ export class UserController {
     } catch (err: any) {
       res
         .status(ValiableConstants.STATUS_CODE.INTERNAL_SERVER_ERROR)
-        .json({ error: err.message });
+        .json(this.helper.responseError(err));
     }
   }
 
-  public getUserById(req: Request, res: Response) {
-    return `Get user with ID ${req.params.id}`;
+  public async getUserById(req: Request, res: Response) {
+    try {
+      const id = req.params.id;
+      const user = await this.userService.getUserById(id);
+      res.json(user);
+    } catch (err: any) {
+      res
+        .status(ValiableConstants.STATUS_CODE.INTERNAL_SERVER_ERROR)
+        .json(this.helper.responseError(err));
+    }
+  }
+
+  public async editUser(req: Request<User>, res: Response) {
+    try {
+      const result = await this.userService.editUser(req);
+      res.json(result);
+    } catch (err: any) {
+      res
+        .status(ValiableConstants.STATUS_CODE.INTERNAL_SERVER_ERROR)
+        .json(this.helper.responseError(err));
+    }
   }
 }

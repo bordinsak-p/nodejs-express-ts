@@ -20,7 +20,8 @@
     "express": "^4.21.2",
     "morgan": "^1.10.0",
     "nodejs-express-ts": "file:",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
