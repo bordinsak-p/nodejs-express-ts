@@ -15,12 +15,16 @@
   "license": "ISC",
   "dependencies": {
     "@types/morgan": "^1.9.9",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "nodejs-express-ts": "file:",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.3",
+    "@types/sqlite3": "^3.1.11",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"

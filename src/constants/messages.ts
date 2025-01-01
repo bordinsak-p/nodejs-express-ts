@@ -1,4 +1,4 @@
-export class Messages {
+export default class MessagesConstants {
   public static readonly SERVER_IS_RUNNING = [
     " _____                                   _             _           _ ",
     "|  ___|                                 | |           | |         | |",
@@ -12,6 +12,8 @@ export class Messages {
     "Express App is running! 🚀",
     "Listening on http://localhost:{port}"
   ].join('\n');
+  public static readonly CONNECT_DATABASE = "Connected to the database success. {db} 🗃️";
+  public static readonly CONNECT_DATABASE_ERROR = "Error connecting to the database: {err}";
   public static readonly SUCCESS = "Success";
   public static readonly ERROR = "Error";
   public static readonly NOT_FOUND = "Not Found";
