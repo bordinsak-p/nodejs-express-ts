@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
+    "dev": "nodemon --watch src --ext ts,json --verbose src/index.ts",
     "build": "tsc",
-    "serve": "node dist/index.js"
+    "serve": "nodemon dist/index.js",
+    "serve_2": "node dist/index.js"
   },
   "keywords": [],
   "author": "",

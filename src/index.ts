@@ -1,12 +1,19 @@
 import express, { Request, Response } from 'express';
+import morgan from 'morgan';
+import { Messages } from './constants/message';
 
 const app = express();
-const port = 3000;
+const port = 8080;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(morgan('dev'));
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, world!');
+    res.json({ ...req.body });
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(Messages.SERVER_IS_RUNNING.replace('{port}', port.toString()));
 });
