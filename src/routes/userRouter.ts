@@ -14,6 +14,7 @@ class UserRouter {
         this.router.get("/getUserById/:id", this.userController.getUserById.bind(this.userController));
         this.router.post("/createUser", this.userController.createUser.bind(this.userController));
         this.router.put("/editUser", this.userController.editUser.bind(this.userController));
+        this.router.delete("/deleteUser", this.userController.deleteUser.bind(this.userController));
     }
 }
 

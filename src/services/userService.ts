@@ -39,19 +39,33 @@ export class UserService extends Helper {
     });
   }
   
-  public editUser(req: Request<User>): Promise<any> {
+  public editUser(req: Request<User>): Promise<Object> {
     const body = req.body;
     return new Promise((resolve, reject) => {
       db.run(
         "UPDATE users SET username = ?, email = ? WHERE user_id = ?",
-        [body.username, body.email, body.user_id], function (err: Error | null) {
+        [body.username, body.email, body.userId], function (err: Error | null) {
           if (err) {
             reject(err.message);
           } else {
-            resolve({ userId: this.lastID });
+            resolve({ userId: this.changes });
           }
         }
       );
     });
   }
+
+  public deleteUser(ids: number[]): Promise<Object> {
+     const userIds = ids.length > 1 ? ids.map(() => '?').join(',') : ids[0];
+     const sql = `DELETE FROM users WHERE user_id IN (${userIds})`     
+      return new Promise((resolve, rejects) => {
+        db.run(sql, ids, function (err: Error | null) {
+          if (err) {
+            rejects(err.message);
+          } else {
+            resolve({ userId: this.changes });
+          }
+        });
+      })
+    }
 }

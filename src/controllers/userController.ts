@@ -52,4 +52,16 @@ export class UserController {
         .json(this.helper.responseError(err));
     }
   }
+
+  public async deleteUser(req: Request, res: Response) {
+    try {
+      const ids = req.body.ids;
+      await this.userService.deleteUser(ids);
+      res.status(ValiableConstants.STATUS_CODE.NO_CONTENT).send();
+    } catch (err: any) {
+      res
+        .status(ValiableConstants.STATUS_CODE.INTERNAL_SERVER_ERROR)
+        .json(this.helper.responseError(err));
+    }
+  }
 }
