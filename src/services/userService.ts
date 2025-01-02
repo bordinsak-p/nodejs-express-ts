@@ -6,10 +6,6 @@ import { User } from "../models/userModel";
 export class UserService extends Helper {
   public getAllUsers(req: Request): Promise<User[]> {
     let { sql, params } = this.setUserCondition(req);
-    if(req.body.username) {
-     sql += "and username = ?";
-      params.push(req.body.username);
-    }
     return new Promise((resolve, reject) => {
       db.all(sql, params, (err: Error, rows: User[]) => {
         if (err) reject(err.message);
@@ -24,11 +20,11 @@ export class UserService extends Helper {
     let params = [];
     if (username) {
       sql += "AND username LIKE ?";
-      params.push(username);
+      params.push(this.setLikeQury(username));
     }
     if (email) {
       sql += "AND email LIKE ?";
-      params.push(email);
+      params.push(this.setLikeQury(email));
     }
     return { sql, params };
   }

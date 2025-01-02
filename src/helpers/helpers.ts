@@ -70,4 +70,11 @@ export default class Helper {
         return 'dev';
     }
   }
+
+  /**
+   * Handle query
+   */
+  public setLikeQury(quary: string): string {
+    return `%${quary}%`;
+  }
 }
