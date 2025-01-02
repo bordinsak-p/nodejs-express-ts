@@ -1,9 +1,16 @@
 import express from "express";
 import userRouter from "./userRouter";
 
-const router = express.Router();
+class AppRouter {
+    public router = express.Router();
+    
+    constructor() {
+        this.initializeAppRoutes();
+    }
 
-// กำหนด path และ router
-router.use("/users", userRouter);
+    private initializeAppRoutes() {
+        this.router.use("/users", userRouter);
+    }
+}
 
-export default router;
+export default new AppRouter().router;

@@ -1,15 +1,20 @@
 import express from "express";
-import { UserController } from "./../controllers/userController";
+import { UserController } from "../controllers/userController";
 
-const router = express.Router();
-const userController = new UserController();
+class UserRouter {
+    public router = express.Router();
+    private userController = new UserController();
 
-router.get("/getAllUsers", userController.getAllUsers.bind(userController));
+    constructor() {
+        this.initializeRoutes();
+    }
 
-router.get("/getUserById/:id", userController.getUserById.bind(userController));
+    private initializeRoutes() {
+        this.router.get("/getAllUsers", this.userController.getAllUsers.bind(this.userController));
+        this.router.get("/getUserById/:id", this.userController.getUserById.bind(this.userController));
+        this.router.post("/createUser", this.userController.createUser.bind(this.userController));
+        this.router.put("/editUser", this.userController.editUser.bind(this.userController));
+    }
+}
 
-router.post("/createUser", userController.createUser.bind(userController));
-
-router.put("/editUser", userController.editUser.bind(userController));
-
-export default router;
+export default new UserRouter().router;
