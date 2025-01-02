@@ -5,12 +5,31 @@ import { User } from "../models/userModel";
 
 export class UserService extends Helper {
   public getAllUsers(req: Request): Promise<User[]> {
+    let { sql, params } = this.setUserCondition(req);
+    if(req.body.username) {
+     sql += "and username = ?";
+      params.push(req.body.username);
+    }
     return new Promise((resolve, reject) => {
-      db.all("SELECT * FROM users", (err: Error, rows: User[]) => {
+      db.all(sql, params, (err: Error, rows: User[]) => {
         if (err) reject(err.message);
         else resolve(rows);
       });
     });
+  }
+
+  private setUserCondition(req: Request): { sql: string, params: any[] } {
+    let sql = "SELECT * FROM users WHERE 1=1 ";
+    let params = [];
+    if (req.body.username) {
+      sql += "AND username LINK %?%";
+      params.push(req.body.username);
+    }
+    if (req.body.email) {
+      sql += "AND email LINK %?%";
+      params.push(req.body.email);
+    }
+    return { sql, params };
   }
 
   public async createUser(req: Request<User>): Promise<Object> {
@@ -23,7 +42,7 @@ export class UserService extends Helper {
           if (err) {
             reject(err.message);
           } else {
-            resolve({ userId: this.lastID });
+            resolve({ userId: this.lastID }); // this.lastID คือ id ของ row ล่าสุดที่ถูกเพิ่ม
           }
         }
       );
@@ -48,7 +67,7 @@ export class UserService extends Helper {
           if (err) {
             reject(err.message);
           } else {
-            resolve({ userId: this.changes });
+            resolve({ userId: this.changes }); // this.changes จำนวน row ที่ถูกเปลี่ยนแปลงหรือแก้ไข
           }
         }
       );
