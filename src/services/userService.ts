@@ -19,15 +19,16 @@ export class UserService extends Helper {
   }
 
   private setUserCondition(req: Request): { sql: string, params: any[] } {
+    const { username, email } = req.body;
     let sql = "SELECT * FROM users WHERE 1=1 ";
     let params = [];
-    if (req.body.username) {
+    if (username) {
       sql += "AND username LIKE ?";
-      params.push(req.body.username);
+      params.push(username);
     }
-    if (req.body.email) {
+    if (email) {
       sql += "AND email LIKE ?";
-      params.push(req.body.email);
+      params.push(email);
     }
     return { sql, params };
   }
