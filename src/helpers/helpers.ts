@@ -35,6 +35,17 @@ export default class Helper {
   }
 
   /**
+   * handle response object
+   */
+  public responseObject(data: Object): Object {
+    return {
+      result: {
+        ...data
+      },
+    };
+  }
+
+  /**
    * Generate UUID
    * option "splits" to split UUID
    */

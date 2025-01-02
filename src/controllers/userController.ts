@@ -22,7 +22,7 @@ export class UserController {
   public async createUser(req: Request<User>, res: Response) {
     try {
       const result = await this.userService.createUser(req);
-      res.status(ValiableConstants.STATUS_CODE.OK).json(result);
+      res.status(ValiableConstants.STATUS_CODE.OK).json(this.helper.responseObject(result));
     } catch (err: any) {
       res
         .status(ValiableConstants.STATUS_CODE.INTERNAL_SERVER_ERROR)
@@ -34,7 +34,7 @@ export class UserController {
     try {
       const id = req.params.id;
       const user = await this.userService.getUserById(id);
-      res.json(user);
+      res.status(ValiableConstants.STATUS_CODE.OK).json(this.helper.responseObject(user));
     } catch (err: any) {
       res
         .status(ValiableConstants.STATUS_CODE.INTERNAL_SERVER_ERROR)
@@ -45,7 +45,7 @@ export class UserController {
   public async editUser(req: Request<User>, res: Response) {
     try {
       const result = await this.userService.editUser(req);
-      res.json(result);
+      res.status(ValiableConstants.STATUS_CODE.OK).json(result);
     } catch (err: any) {
       res
         .status(ValiableConstants.STATUS_CODE.INTERNAL_SERVER_ERROR)
