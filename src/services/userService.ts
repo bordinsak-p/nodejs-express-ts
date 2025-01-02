@@ -22,11 +22,11 @@ export class UserService extends Helper {
     let sql = "SELECT * FROM users WHERE 1=1 ";
     let params = [];
     if (req.body.username) {
-      sql += "AND username LINK %?%";
+      sql += "AND username LIKE ?";
       params.push(req.body.username);
     }
     if (req.body.email) {
-      sql += "AND email LINK %?%";
+      sql += "AND email LIKE ?";
       params.push(req.body.email);
     }
     return { sql, params };
