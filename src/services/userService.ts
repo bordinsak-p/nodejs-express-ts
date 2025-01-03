@@ -38,8 +38,8 @@ export class UserService extends Helper {
     const hashedPassword = await this.hashPassword(body.password);
     return new Promise((resolve, reject) => {
       db.run(
-        "INSERT INTO users (username, password, email, firstname, lastnmae) VALUES (?, ?, ?, ?, ?)",
-        [body.username, hashedPassword, body.email, body.firstname, body.lastname], function (err: Error | null) {
+        "INSERT INTO users (username, password, email, firstname, lastname, create_by, update_by) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [body.username, hashedPassword, body.email, body.firstname, body.lastname, body.createBy, body.updateBy], function (err: Error | null) {
           if (err) {
             reject(err.message);
           } else {

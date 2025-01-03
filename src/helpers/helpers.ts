@@ -65,7 +65,7 @@ export default class Helper {
   public morganHandle(option: "track" | 'dev'): string {
     switch (option) {
       case "track":
-        return ':method :url :status :response-time ms - :res[content-length] :track';
+        return ':date - :method :url :status :response-time ms - :res[content-length] :track';
       default:
         return 'dev';
     }

@@ -7,4 +7,6 @@ export interface User {
   email: string;
   createAt: Date;
   updateAt: Date;
+  createBy: string;
+  updateBy: string;
 }
