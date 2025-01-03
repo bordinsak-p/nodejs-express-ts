@@ -1,6 +1,9 @@
 export default class Helper {
   private bcrypt = require("bcryptjs");
   private uuid = require("uuid");
+  private crypto = require('crypto');
+
+  constructor() {}
 
   /**
    * Hash password
@@ -20,29 +23,8 @@ export default class Helper {
   /** 
    * Compare password with hash 
   */
-  public comparePassword(password: string, hash: string): boolean {
-    return this.bcrypt.compare(password, hash);
-  }
-
-  /**
-   * handle response error
-   */
-  public responseError(errorMessage: string): Object {
-    return {
-      message: "error",
-      error: errorMessage,
-    };
-  }
-
-  /**
-   * handle response object
-   */
-  public responseObject(data: Object): Object {
-    return {
-      result: {
-        ...data
-      },
-    };
+  public async comparePassword(password: string, hash: string): Promise<boolean> {
+    return await this.bcrypt.compare(password, hash);
   }
 
   /**
@@ -56,6 +38,11 @@ export default class Helper {
       default:
         return this.uuid.v4();
     }
+  }
+
+  private generateSecretKey(): string {
+    console.log(this.crypto.randomBytes(64).toString('hex'));
+    return this.crypto.randomBytes(64).toString('hex');
   }
 
   /**

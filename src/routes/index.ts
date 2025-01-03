@@ -1,4 +1,5 @@
 import express from "express";
+import authRouter from "./authRouter";
 import userRouter from "./userRouter";
 
 class AppRouter {
@@ -10,6 +11,7 @@ class AppRouter {
 
     private initializeAppRoutes() {
         this.router.use("/users", userRouter);
+        this.router.use("/auth", authRouter);
     }
 }
 

@@ -3,7 +3,7 @@ import db from "../db";
 import Helper from "../helpers/helpers";
 import { User } from "../models/userModel";
 
-export class UserService extends Helper {
+export default class UserService extends Helper {
   public getAllUsers(req: Request<User>): Promise<User[]> {
     let { sql, params } = this.setUserCondition(req);
     return new Promise((resolve, reject) => {
