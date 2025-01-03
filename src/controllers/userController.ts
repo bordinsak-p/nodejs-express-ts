@@ -8,7 +8,7 @@ export class UserController {
   private userService = new UserService();
   private helper = new Helper();
 
-  public async getAllUsers(req: Request, res: Response) {
+  public async getAllUsers(req: Request<User>, res: Response) {
     try {
       const users = await this.userService.getAllUsers(req);
       res.json(users);

@@ -34,3 +34,13 @@ Thumbs.db
 
 # database file
 database.sqlite
+
+# Test coverage files
+coverage/
+*.lcov
+
+# Jest snapshot files
+*.snap
+
+# Logs
+test-results.log

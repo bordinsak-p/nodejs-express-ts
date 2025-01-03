@@ -75,6 +75,7 @@ export default class Helper {
    * Handle query
    */
   public setLikeQury(quary: string): string {
+    if(!quary) return 'null';
     return `%${quary}%`;
   }
 }

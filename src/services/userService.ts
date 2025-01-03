@@ -4,7 +4,7 @@ import Helper from "../helpers/helpers";
 import { User } from "../models/userModel";
 
 export class UserService extends Helper {
-  public getAllUsers(req: Request): Promise<User[]> {
+  public getAllUsers(req: Request<User>): Promise<User[]> {
     let { sql, params } = this.setUserCondition(req);
     return new Promise((resolve, reject) => {
       db.all(sql, params, (err: Error, rows: User[]) => {
@@ -14,17 +14,21 @@ export class UserService extends Helper {
     });
   }
 
-  private setUserCondition(req: Request): { sql: string, params: any[] } {
-    const { username, email } = req.body;
+  private setUserCondition(req: Request<User>): { sql: string, params: any[] } {
+    const { username, firstname, lastname } = req.body;
     let sql = "SELECT * FROM users WHERE 1=1 ";
     let params = [];
     if (username) {
       sql += "AND username LIKE ?";
       params.push(this.setLikeQury(username));
     }
-    if (email) {
-      sql += "AND email LIKE ?";
-      params.push(this.setLikeQury(email));
+    if (firstname) {
+      sql += "AND firstname LIKE ?";
+      params.push(this.setLikeQury(firstname));
+    }
+    if(lastname) {
+      sql += "AND lastname LIKE ?";
+      params.push(this.setLikeQury(lastname));
     }
     return { sql, params };
   }
@@ -34,8 +38,8 @@ export class UserService extends Helper {
     const hashedPassword = await this.hashPassword(body.password);
     return new Promise((resolve, reject) => {
       db.run(
-        "INSERT INTO users (username, password, email) VALUES (?, ?, ?)",
-        [body.username, hashedPassword, body.email], function (err: Error | null) {
+        "INSERT INTO users (username, password, email, firstname, lastnmae) VALUES (?, ?, ?, ?, ?)",
+        [body.username, hashedPassword, body.email, body.firstname, body.lastname], function (err: Error | null) {
           if (err) {
             reject(err.message);
           } else {
